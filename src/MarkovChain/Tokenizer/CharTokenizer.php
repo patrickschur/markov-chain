@@ -14,9 +14,6 @@ class CharTokenizer implements TokenizerInterface
 {
     public function tokenize(string $string): array
     {
-        $w = (new WordTokenizer())->tokenize($string);
-        $w = implode('', $w);
-
-        return preg_split('//u', $w, -1, PREG_SPLIT_NO_EMPTY);
+        return preg_split('//u', preg_replace('/[^\pL]+/u', '', $string), -1, PREG_SPLIT_NO_EMPTY);
     }
 }

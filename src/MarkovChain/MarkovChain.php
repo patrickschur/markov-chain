@@ -14,12 +14,19 @@ use MarkovChain\Tokenizer\TokenizerInterface;
  */
 class MarkovChain
 {
-    protected $matrix = [];
+    /**
+     * @var array
+     */
+    protected $result = [];
 
+    /**
+     * @var TokenizerInterface|null
+     */
     protected $tokenizer = null;
 
     /**
      * MarkovChain constructor.
+     *
      * @param TokenizerInterface $tokenizer
      */
     public function __construct(TokenizerInterface $tokenizer)
@@ -32,32 +39,28 @@ class MarkovChain
      */
     public function learn(array $input)
     {
-        $tmp = [];
+        $matrix = [];
 
         foreach ($input as $value)
         {
-            $tmp = $this->tokenizer->tokenize($value);
+            $array = $this->tokenizer->tokenize($value);
 
-            for ($i = 1, $l = count($tmp); $i < $l; $i++)
+            for ($pos = 1, $length = count($array); $pos < $length; $pos++, $count++)
             {
-                if (!isset($this->matrix[ $tmp[$i - 1] ][ $tmp[$i] ])) {
-                    $this->matrix[ $tmp[$i - 1] ][ $tmp[$i] ] = 0;
-                }
-
-                $this->matrix[ $tmp[$i - 1] ][ $tmp[$i] ]++;
+                $count = &$matrix[ $array[$pos - 1] ][ $array[$pos] ];
             }
         }
 
-        foreach ($this->matrix as $first => $array)
+        foreach ($matrix as $prev => $array)
         {
-            $sum = array_sum($array);
+            $total = array_sum($array);
 
-            foreach ($array as $last => $count)
+            foreach ($array as $next => $count)
             {
-                $count /= $sum;
-                $this->matrix[$first][$last] = $count;
+                $this->result[$prev][$next] = ($count / $total);
             }
         }
+
     }
 
     /**
@@ -66,19 +69,12 @@ class MarkovChain
      */
     public function classify(string $subject)
     {
-        if (!isset($this->matrix[$subject])) {
+        if (!isset($this->result[$subject])) {
             return null;
         }
 
-        $result = [];
+        arsort($this->result[$subject]);
 
-        foreach ($this->matrix[$subject] as $word => $score)
-        {
-            $result[$word] = $score;
-        }
-
-        arsort($result);
-
-        return $result;
+        return $this->result[$subject];
     }
 }
