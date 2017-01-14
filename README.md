@@ -38,7 +38,7 @@ CharTokenizer
 ```php
 use MarkovChain\MarkovChain;
 use MarkovChain\Tokenizer\CharTokenizer;
-
+ 
 $c = new MarkovChain(new CharTokenizer());
  
 $c->learn([
