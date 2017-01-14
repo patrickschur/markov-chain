@@ -3,6 +3,7 @@
   "type": "library",
   "description": "An implementation of the Markov chain algorithm in PHP.",
   "keywords": ["markov", "chain"],
+  "homepage": "https://github.com/patrickschur/markov-chain",
   "license": "MIT",
   "minimum-stability": "stable",
   "prefer-stable": true,
