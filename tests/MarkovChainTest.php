@@ -8,6 +8,12 @@ use MarkovChain\MarkovChain;
 use MarkovChain\Tokenizer\CharTokenizer;
 use MarkovChain\Tokenizer\WordTokenizer;
 
+/**
+ * Class MarkovChainTest
+ *
+ * @author Patrick Schur <patrick_schur@outlook.de>
+ * @package MarkovChain\Tests
+ */
 class MarkovChainTest extends \PHPUnit_Framework_TestCase
 {
     public function testWordTokenizer()
@@ -41,10 +47,7 @@ class MarkovChainTest extends \PHPUnit_Framework_TestCase
     {
         $c = new MarkovChain(new WordTokenizer());
 
-        $c->learn([
-            '',
-            '',
-        ]);
+        $c->learn(['']);
 
         $this->assertNull($c->classify('a'));
     }
