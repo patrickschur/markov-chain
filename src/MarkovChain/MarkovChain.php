@@ -45,9 +45,9 @@ class MarkovChain
         {
             $array = $this->tokenizer->tokenize($value);
 
-            for ($pos = 1, $length = count($array); $pos < $length; $pos++, $count++)
+            for ($pos = 1, $length = count($array); $pos < $length; $pos++, $counter++)
             {
-                $count = &$matrix[ $array[$pos - 1] ][ $array[$pos] ];
+                $counter = &$matrix[ $array[$pos - 1] ][ $array[$pos] ];
             }
         }
 
