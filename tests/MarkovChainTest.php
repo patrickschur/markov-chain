@@ -7,6 +7,7 @@ namespace MarkovChain\Tests;
 use MarkovChain\MarkovChain;
 use MarkovChain\Tokenizer\CharTokenizer;
 use MarkovChain\Tokenizer\WordTokenizer;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class MarkovChainTest
@@ -14,7 +15,7 @@ use MarkovChain\Tokenizer\WordTokenizer;
  * @author Patrick Schur <patrick_schur@outlook.de>
  * @package MarkovChain\Tests
  */
-class MarkovChainTest extends \PHPUnit_Framework_TestCase
+class MarkovChainTest extends TestCase
 {
     public function testWordTokenizer()
     {
